@@ -56,19 +56,19 @@
     <devlight.io.library.ntb.NavigationTabBar
         android:id="@+id/ntb_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom"
         app:ntb_badge_size="12sp"
         app:ntb_badge_bg_color="#ffff0000"
         app:ntb_badge_gravity="top"
-        app:ntb_badge_position="left"
+        app:ntb_badge_position="center"
         app:ntb_badge_title_color="#ffffffff"
         app:ntb_badge_use_typeface="true"
         app:ntb_badged="true"
-        app:ntb_typeface="fonts/agency.ttf"/>
+        app:ntb_typeface="OpenSans-Light.ttf"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_convenient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
