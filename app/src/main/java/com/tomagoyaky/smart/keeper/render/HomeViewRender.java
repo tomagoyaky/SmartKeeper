@@ -1,4 +1,4 @@
-package com.tomagoyaky.smart.keeper.holder;
+package com.tomagoyaky.smart.keeper.render;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,18 +9,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.tomagoyaky.smart.keeper.R;
 import com.tomagoyaky.smart.keeper.SmartApplication;
+import com.tomagoyaky.smart.keeper.render.home.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,7 +27,7 @@ import devlight.io.library.ntb.NavigationTabBar;
  * @date 2018/3/6
  */
 
-public class HomeViewHolder extends AbstractViewHolder {
+public class HomeViewRender extends AbstractViewRender {
 
     private ViewPager viewPager;
     private NavigationTabBar navigationTabBar;
@@ -48,7 +43,7 @@ public class HomeViewHolder extends AbstractViewHolder {
             new TabModel("Medal", R.drawable.ic_fifth)
     };
 
-    public HomeViewHolder(Activity activity) {
+    public HomeViewRender(Activity activity) {
         super(activity);
         this.viewPager = (ViewPager) activity.findViewById(R.id.vp_horizontal_ntb);
         this.navigationTabBar = (NavigationTabBar) activity.findViewById(R.id.ntb_horizontal);
@@ -109,7 +104,7 @@ public class HomeViewHolder extends AbstractViewHolder {
         }
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 2);
+        navigationTabBar.setViewPager(viewPager, 1);
         //IMPORTANT: ENABLE SCROLL BEHAVIOUR IN COORDINATOR LAYOUT
         navigationTabBar.setBehaviorEnabled(true);
         navigationTabBar.setOnTabBarSelectedIndexListener(new NavigationTabBar.OnTabBarSelectedIndexListener() {
@@ -167,65 +162,24 @@ public class HomeViewHolder extends AbstractViewHolder {
             View view = null;
             switch (position) {
                 case 0:
-                    view = LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.item_vp_list, null, false);
-                    final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity.getBaseContext(), LinearLayoutManager.VERTICAL, false));
-                    recyclerView.setAdapter(new RecycleAdapter(activity.getBaseContext()));
-                    container.addView(view);
+                    view = ViewPage00Render.INSTANCE(activity, SmartApplication.getSmartContext()).rendering(container);
                     break;
                 case 1:
+                    view = ViewPage01Render.INSTANCE(activity, SmartApplication.getSmartContext()).rendering(container);
                     break;
                 case 2:
-
+                    view = ViewPage02Render.INSTANCE(activity, SmartApplication.getSmartContext()).rendering(container);
+                    break;
+                case 3:
+                    view = ViewPage03Render.INSTANCE(activity, SmartApplication.getSmartContext()).rendering(container);
+                    break;
+                case 4:
+                    view = ViewPage04Render.INSTANCE(activity, SmartApplication.getSmartContext()).rendering(container);
                     break;
                 default:
                     break;
             }
             return view;
-        }
-    }
-
-    public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {
-
-        private JSONArray data;
-        private Context context;
-        public RecycleAdapter(Context context) {
-            this.context = context;
-            this.data = SmartApplication.getSmartContext().homeitemJson.getJSONArray("homeItems");
-        }
-
-        @Override
-        public RecycleAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-            final View view = LayoutInflater.from(context).inflate(R.layout.item_list, parent, false);
-            return new RecycleAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final RecycleAdapter.ViewHolder holder, final int position) {
-
-            final String content = ((JSONObject)data.get(position)).getString("name");
-            holder.txt.setText(content);
-            holder.txt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "" + data.get(position), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-
-            public TextView txt;
-            public ViewHolder(final View itemView) {
-                super(itemView);
-                txt = (TextView) itemView.findViewById(R.id.txt_vp_item_list);
-            }
         }
     }
 

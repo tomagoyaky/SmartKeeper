@@ -26,7 +26,7 @@ public class Logger {
     @Nullable
     public static String err(@Nullable String msg){
         if(msg != null && debug) {
-            Log.d(TAG, msg);
+            Log.e(TAG, msg);
         }
         return msg;
     }

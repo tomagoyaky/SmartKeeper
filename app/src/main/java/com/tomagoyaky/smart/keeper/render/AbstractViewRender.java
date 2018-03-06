@@ -1,4 +1,4 @@
-package com.tomagoyaky.smart.keeper.holder;
+package com.tomagoyaky.smart.keeper.render;
 
 import android.app.Activity;
 
@@ -7,10 +7,10 @@ import android.app.Activity;
  * @date 2018/3/6
  */
 
-public abstract class AbstractViewHolder {
+public abstract class AbstractViewRender {
 
     private Activity activity;
-    public AbstractViewHolder(Activity activity){
+    public AbstractViewRender(Activity activity){
         this.activity = activity;
     }
 }

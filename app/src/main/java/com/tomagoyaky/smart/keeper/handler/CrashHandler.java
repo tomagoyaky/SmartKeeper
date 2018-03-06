@@ -2,6 +2,7 @@ package com.tomagoyaky.smart.keeper.handler;
 
 import android.os.Looper;
 
+import com.tomagoyaky.smart.keeper.Logger;
 import com.tomagoyaky.smart.keeper.SmartApplication;
 import com.tomagoyaky.smart.keeper.SmartContext;
 import com.tomagoyaky.smart.keeper.util.DialogUtil;
@@ -59,19 +60,7 @@ public class CrashHandler extends AbstractHandler implements Thread.UncaughtExce
         if (ex == null) {
             return false;
         }
-
-        // 使用 Toast 来显示异常信息
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                DialogUtil.getMessageDialog(smartContext, ex.getMessage())
-                        .setTitle("程序异常")
-                        .create()
-                        .show();
-                Looper.loop();
-            }
-        }.start();
+        Logger.printStackTrace(ex);
         return true;
     }
 }
